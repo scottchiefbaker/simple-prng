@@ -18,11 +18,11 @@ class sm64 {
 		void seed(uint64_t seeds[2]);
 		uint32_t rand();
 		uint64_t rand64();
+	private:
+		uint64_t x;
 };
 
 //////////////////////////////////////////////////////////////
-
-static uint64_t x; /* The state can be seeded with any value. */
 
 // There are two seeds here to be compatible with other PRNGs
 // The second is ignore for split mix
