@@ -50,26 +50,37 @@ class xoroshiro128plus {
 	public:
 		void seed(uint64_t seeds[2]);
 		void seed(uint64_t seed1, uint64_t seed2);
+		uint64_t rotl(const uint64_t x, int k);
 		uint32_t rand();
 		uint64_t rand64();
+
+		bool debug = 0;
+		const char* prng_name = "xoroshiro128plus";
+	private:
+		uint64_t s[2];
 };
 
 //////////////////////////////////////////////////////////////////
 
-static inline uint64_t rotl(const uint64_t x, int k) {
+uint64_t xoroshiro128plus::rotl(const uint64_t x, int k) {
 	return (x << k) | (x >> (64 - k));
 }
-
-static uint64_t s[2];
 
 void xoroshiro128plus::seed(uint64_t seed1, uint64_t seed2) {
 	s[0] = seed1;
 	s[1] = seed2;
+
+	if (this->debug) {
+		printf("%s SEED: %d = %llu\n", prng_name, 0, s[0]);
+		printf("%s SEED: %d = %llu\n", prng_name, 1, s[1]);
+	}
 }
 
 void xoroshiro128plus::seed(uint64_t seeds[2]) {
 	for (int i = 0; i < 2; i++) {
 		s[i] = seeds[i];
+
+		if (this->debug) { printf("%s SEED: %d = %llu\n", prng_name, i, s[i]); }
 	}
 }
 
