@@ -18,25 +18,27 @@ class pcg32 {
 		void seed(uint64_t seeds[2]);
 		uint32_t rand();
 		uint64_t rand64();
+
+		bool debug = 0;
+	private:
+		uint64_t state;
+		uint64_t inc;
 };
 
 //////////////////////////////////////////////////////////////
-
-static uint64_t state;
-static uint64_t inc;
 
 void pcg32::seed(uint64_t seed1, uint64_t seed2) {
 	state = seed1;
 	inc   = seed2;
 
-	//printf("%llu / %llu\n", state, inc);
+	if (this->debug) { printf("%llu / %llu\n", state, inc); }
 }
 
 void pcg32::seed(uint64_t seeds[2]) {
 	state = seeds[0];
 	inc   = seeds[1];
 
-	//printf("%llu / %llu\n", state, inc);
+	if (this->debug) { printf("%llu / %llu\n", state, inc); }
 }
 
 uint32_t pcg32::rand() {
