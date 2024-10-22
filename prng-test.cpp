@@ -6,17 +6,29 @@
 #include "split_mix_64.cpp"
 #include "pcg32.cpp"
 #include "xoroshiro128plus.cpp"
+#include "xoshiro256starstar.cpp"
 #include "skel.cpp"
 
 int main(int argc, char *argv[]) {
+	// We make a small sm64 PRNG to generate seeds
+	sm64 sm;
+	sm.seed(time(NULL));
+
 	//sm64 prng;
 	//pcg32 prng;
 	//xoroshiro128plus prng;
+	//xoshiro256starstar prng;
 	skel prng;
 
-	//prng.debug = 1;
+	prng.debug = 1;
 
-	uint64_t seeds[4] = { (uint64_t)time(NULL), (uintptr_t)printf, 7, 5 };
+	// Use SplitMix64 to generate some seeds
+	uint64_t seeds[4];
+	for (int i = 0; i < 4; i++) {
+		seeds[i] = sm.rand64();
+	}
+
+	// Seed the PRNG we're wanting numbers from
 	prng.seed(seeds);
 
 	// Warm up the PRNG
