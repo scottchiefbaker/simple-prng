@@ -15,9 +15,13 @@
 class sm64 {
 	public:
 		void seed(uint64_t seed1, uint64_t seed2);
+		void seed(uint64_t seed);
 		void seed(uint64_t seeds[2]);
 		uint32_t rand();
 		uint64_t rand64();
+
+		bool debug = 0;
+		const char* prng_name = "split_mix_64";
 	private:
 		uint64_t x;
 };
@@ -28,10 +32,22 @@ class sm64 {
 // The second is ignore for split mix
 void sm64::seed(uint64_t seed1, uint64_t seed2) {
 	x = seed1;
+
+	if (this->debug) { printf("%s SEED: %llu\n", prng_name, x); }
 }
 
+// This only takes ONE seed
+void sm64::seed(uint64_t seed) {
+	x = seed;
+
+	if (this->debug) { printf("%s SEED: %llu\n", prng_name, x); }
+}
+
+// Array of seeds
 void sm64::seed(uint64_t seeds[1]) {
 	x = seeds[0];
+
+	if (this->debug) { printf("%s SEED: %llu\n", prng_name, x); }
 }
 
 uint64_t sm64::rand64() {
