@@ -17,6 +17,7 @@ class sm64 {
 		void seed(uint64_t seed1, uint64_t seed2);
 		void seed(uint64_t seed);
 		void seed(uint64_t seeds[2]);
+		void warmup();
 		uint32_t rand();
 		uint64_t rand64();
 
@@ -41,6 +42,12 @@ void sm64::seed(uint64_t seed) {
 	x = seed;
 
 	if (this->debug) { printf("%s SEED: %llu\n", prng_name, x); }
+}
+
+void sm64::warmup() {
+	for (int i = 0; i < 1024; i++) {
+		rand64();
+	}
 }
 
 // Array of seeds
