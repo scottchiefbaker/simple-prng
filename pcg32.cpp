@@ -19,6 +19,7 @@ class pcg32 {
 		uint32_t rand();
 		uint64_t rand64();
 
+		const char* prng_name = "pcg32";
 		bool debug = 0;
 	private:
 		uint64_t state;
@@ -31,14 +32,14 @@ void pcg32::seed(uint64_t seed1, uint64_t seed2) {
 	state = seed1;
 	inc   = seed2;
 
-	if (this->debug) { printf("%llu / %llu\n", state, inc); }
+	if (this->debug) { printf("%s SEED: %llu / %llu\n", prng_name, state, inc); }
 }
 
 void pcg32::seed(uint64_t seeds[2]) {
 	state = seeds[0];
 	inc   = seeds[1];
 
-	if (this->debug) { printf("%llu / %llu\n", state, inc); }
+	if (this->debug) { printf("%s SEED: %llu / %llu\n", prng_name, state, inc); }
 }
 
 uint32_t pcg32::rand() {
