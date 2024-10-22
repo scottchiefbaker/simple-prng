@@ -13,6 +13,7 @@ int main(int argc, char *argv[]) {
 	// We make a small sm64 PRNG to generate seeds
 	sm64 sm;
 	sm.seed(time(NULL));
+	sm.warmup();
 
 	//sm64 prng;
 	//pcg32 prng;
