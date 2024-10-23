@@ -15,10 +15,10 @@ int main(int argc, char *argv[]) {
 	sm.warmup();
 
 	//sm64 prng;
-	//pcg32 prng;
+	pcg32 prng;
 	//xoroshiro128plus prng;
 	//xoshiro256starstar prng;
-	skel prng;
+	//skel prng;
 
 	prng.debug = 1;
 
