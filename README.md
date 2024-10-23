@@ -38,4 +38,5 @@ int main(int argc, char *argv[]) {
 
 `uint32_t prng.rand()` fetch a random 32bit integer
 
-`uint64_t prng.rand()` fetch a random 64bit integer
+`uint64_t prng.rand64()` fetch a random 64bit integer
+
