@@ -55,7 +55,7 @@ class xoroshiro128plus {
 		uint64_t rand64();
 
 		bool debug = 0;
-		const char* prng_name = "xoroshiro128plus";
+		const char* prng_name = "xoroshiro128+";
 	private:
 		uint64_t s[2];
 };

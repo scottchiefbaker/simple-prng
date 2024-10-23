@@ -14,7 +14,7 @@ class xoshiro256starstar {
 		uint64_t rand64();
 
 		bool debug            = 0;
-		const char* prng_name = "xoshiro256starstar";
+		const char* prng_name = "xoshiro256**";
 	private:
 		uint64_t s[4];
 };
