@@ -7,7 +7,6 @@ Simple C++ implementations for popular Pseudo Random Number Generators
 ```c++
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <time.h>
 
 #include "pcg32.cpp"
