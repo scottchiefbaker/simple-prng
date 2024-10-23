@@ -25,6 +25,11 @@ class skel {
 void skel::seed(uint64_t seed1, uint64_t seed2) {
 	s[0] = seed1;
 	s[1] = seed2;
+
+	if (this->debug) {
+		printf("%s SEED: #1 = %llu\n", prng_name, s[0]);
+		printf("%s SEED: #2 = %llu\n", prng_name, s[1]);
+	}
 }
 
 // An array of params
@@ -33,7 +38,7 @@ void skel::seed(uint64_t seeds[2]) {
 		s[i] = seeds[i];
 
 		if (this->debug) {
-			printf("SEED: %d = %llu\n", i, s[i]);
+			printf("%s SEED: %d = %llu\n", prng_name, i+1, s[i]);
 		}
 	}
 }
