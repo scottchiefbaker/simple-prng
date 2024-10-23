@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "split_mix_64.cpp"
+#include "splitmix64.cpp"
 #include "pcg32.cpp"
 #include "xoroshiro128plus.cpp"
 #include "xoshiro256starstar.cpp"
