@@ -12,7 +12,7 @@
 
 #include <cstdint>
 
-class sm64 {
+class splitmix64 {
 	public:
 		void seed(uint64_t seed1, uint64_t seed2);
 		void seed(uint64_t seed);
@@ -31,33 +31,33 @@ class sm64 {
 
 // There are two seeds here to be compatible with other PRNGs
 // The second is ignore for split mix
-void sm64::seed(uint64_t seed1, uint64_t seed2) {
+void splitmix64::seed(uint64_t seed1, uint64_t seed2) {
 	x = seed1;
 
 	if (this->debug) { printf("%s SEED: %llu\n", prng_name, x); }
 }
 
 // This only takes ONE seed
-void sm64::seed(uint64_t seed) {
+void splitmix64::seed(uint64_t seed) {
 	x = seed;
 
 	if (this->debug) { printf("%s SEED: %llu\n", prng_name, x); }
 }
 
-void sm64::warmup() {
+void splitmix64::warmup() {
 	for (int i = 0; i < 1024; i++) {
 		rand64();
 	}
 }
 
 // Array of seeds
-void sm64::seed(uint64_t seeds[1]) {
+void splitmix64::seed(uint64_t seeds[1]) {
 	x = seeds[0];
 
 	if (this->debug) { printf("%s SEED: %llu\n", prng_name, x); }
 }
 
-uint64_t sm64::rand64() {
+uint64_t splitmix64::rand64() {
 	uint64_t z;
 
 	z = (x += 0x9e3779b97f4a7c15);
@@ -67,8 +67,8 @@ uint64_t sm64::rand64() {
 	return z ^ (z >> 31);
 }
 
-uint32_t sm64::rand() {
-	uint64_t ret = sm64::rand64();
+uint32_t splitmix64::rand() {
+	uint64_t ret = splitmix64::rand64();
 
 	ret = ret >> 32;
 

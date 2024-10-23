@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
 
 ## Available PRNGs
 
-* PCG32 - `pcg32.cpp` - pcg32
-* SplitMix64 - `split_mix_64.cpp` - sm64
-* xoroshiro128+ - `xoroshiro128plus.cpp` - xoroshiro128plus
-* xoshiro256** - `xoshiro256starstar.cpp` - xoshiro256starstar
+* PCG32 - `pcg32.cpp`
+* SplitMix64 - `splitmix64.cpp`
+* xoroshiro128+ - `xoroshiro128plus.cpp`
+* xoshiro256** - `xoshiro256starstar.cpp`
