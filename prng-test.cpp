@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/time.h> // gettimeofday()
+#include <time.h> // clock_gettime()
 
 #include "splitmix64.cpp"
 #include "pcg32.cpp"
@@ -9,18 +9,22 @@
 #include "skel.cpp"
 
 // Microseconds of uptime
-uint64_t micros() {
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
-	uint64_t time_in_micros = 1000000 * tv.tv_sec + tv.tv_usec;
+uint64_t nanos() {
+    struct timespec ts;
 
-	return time_in_micros;
+    // Get the monotonic time
+    if (clock_gettime(CLOCK_MONOTONIC, &ts) != 0) {
+        return 0; // Return 0 on failure (you can handle this differently)
+    }
+
+	// Calculate uptime in nanoseconds
+	return (uint64_t)ts.tv_sec * 1000000000ULL + (uint64_t)ts.tv_nsec;
 }
 
 int main(int argc, char *argv[]) {
 	// We make a small splitmix64 PRNG to generate seeds
 	splitmix64 sm;
-	sm.seed(micros());
+	sm.seed(nanos());
 	sm.warmup();
 
 	//splitmix64 prng;
