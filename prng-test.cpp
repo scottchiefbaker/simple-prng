@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include <sys/time.h> // gettimeofday()
 
 #include "splitmix64.cpp"
 #include "pcg32.cpp"
@@ -8,10 +8,19 @@
 #include "xoshiro256starstar.cpp"
 #include "skel.cpp"
 
+// Microseconds of uptime
+uint64_t micros() {
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	uint64_t time_in_micros = 1000000 * tv.tv_sec + tv.tv_usec;
+
+	return time_in_micros;
+}
+
 int main(int argc, char *argv[]) {
 	// We make a small splitmix64 PRNG to generate seeds
 	splitmix64 sm;
-	sm.seed(time(NULL));
+	sm.seed(micros());
 	sm.warmup();
 
 	//splitmix64 prng;
