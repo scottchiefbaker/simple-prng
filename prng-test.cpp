@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
 
 	// 32 bit randoms
 	for (int i = 0; i < 5; i++) {
-		printf("rand()  : %llu\n", prng.rand());
+		printf("rand32(): %llu\n", prng.rand());
 	}
 
 	// 64 bit randoms
