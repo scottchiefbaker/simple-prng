@@ -8,23 +8,17 @@
 #include "xoshiro256starstar.cpp"
 #include "skel.cpp"
 
-// Microseconds of uptime
-uint64_t nanos() {
-    struct timespec ts;
-
-    // Get the monotonic time
-    if (clock_gettime(CLOCK_MONOTONIC, &ts) != 0) {
-        return 0; // Return 0 on failure (you can handle this differently)
-    }
-
-	// Calculate uptime in nanoseconds
-	return (uint64_t)ts.tv_sec * 1000000000ULL + (uint64_t)ts.tv_nsec;
-}
+uint64_t get_urandom_u64();
+uint64_t nanos();
 
 int main(int argc, char *argv[]) {
+	// We need a random seed
+	uint64_t seed = get_urandom_u64();
+	if (seed == 0 ) { seed = nanos(); }
+
 	// We make a small splitmix64 PRNG to generate seeds
 	splitmix64 sm;
-	sm.seed(nanos());
+	sm.seed(seed);
 	sm.warmup();
 
 	//splitmix64 prng;
@@ -60,5 +54,37 @@ int main(int argc, char *argv[]) {
 	}
 }
 
-// vim: tabstop=4 shiftwidth=4 noexpandtab autoindent softtabstop=4
+uint64_t get_urandom_u64() {
+	uint64_t random_value = 0; // Default to 0 in case of failure
+	FILE *urandom = fopen("/dev/urandom", "rb");
 
+	// Return 0 if /dev/urandom cannot be opened
+	if (urandom == NULL) {
+		return 0;
+	}
+
+	size_t bytes_read = fread(&random_value, sizeof(random_value), 1, urandom);
+	fclose(urandom);
+
+	// Check if fread successfully read 8 bytes
+	if (bytes_read != 1) {
+		return 0;
+	}
+
+	return random_value;
+}
+
+// Microseconds of uptime
+uint64_t nanos() {
+	struct timespec ts;
+
+	// Get the monotonic time
+	if (clock_gettime(CLOCK_MONOTONIC, &ts) != 0) {
+		return 0; // Return 0 on failure (you can handle this differently)
+	}
+
+	// Calculate uptime in nanoseconds
+	return (uint64_t)ts.tv_sec * 1000000000ULL + (uint64_t)ts.tv_nsec;
+}
+
+// vim: tabstop=4 shiftwidth=4 noexpandtab autoindent softtabstop=4
