@@ -8,6 +8,7 @@
 class xoshiro256starstar {
 	public:
 		void     seed(uint64_t seeds[4]);
+		void     seed(uint64_t seed1, uint64_t seed2, uint64_t seed3, uint64_t seed4);
 		uint64_t rotl(const uint64_t x, int k);
 		uint32_t rand();
 		uint64_t rand32();
@@ -23,6 +24,13 @@ class xoshiro256starstar {
 
 uint64_t xoshiro256starstar::rotl(const uint64_t x, int k) {
 	return (x << k) | (x >> (64 - k));
+}
+
+// Four separate seeds (not an array)
+void xoshiro256starstar::seed(uint64_t seed1, uint64_t seed2, uint64_t seed3, uint64_t seed4) {
+	uint64_t seeds[4] = { seed1, seed2, seed3, seed4 };
+
+	xoshiro256starstar::seed(seeds);
 }
 
 // An array of params
