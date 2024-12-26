@@ -12,7 +12,7 @@ uint64_t get_urandom_u64();
 uint64_t nanos();
 
 int main(int argc, char *argv[]) {
-	// We need a random seed
+	// Get a random number from /dev/urandom or fall back to nanos()
 	uint64_t seed = get_urandom_u64();
 	if (seed == 0 ) { seed = nanos(); }
 
