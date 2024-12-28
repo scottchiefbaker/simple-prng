@@ -43,16 +43,19 @@ int main(int argc, char *argv[]) {
 		prng.rand();
 	}
 
+	printf("\n");
 	// 32 bit randoms
 	for (int i = 0; i < 5; i++) {
 		printf("rand32(): %llu\n", prng.rand());
 	}
 
+	printf("\n");
 	// 64 bit randoms
 	for (int i = 0; i < 5; i++) {
 		printf("rand64(): %llu\n", prng.rand64());
 	}
 
+	printf("\n");
 	double max = 18446744073709551615.0; // 2^64 - 1
 	for (int i = 0; i < 5; i++) {
 		double num = prng.rand64() / max;
