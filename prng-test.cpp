@@ -11,6 +11,8 @@
 uint64_t get_urandom_u64();
 uint64_t nanos();
 
+uint8_t iterations = 4;
+
 int main(int argc, char *argv[]) {
 	// Get a random number from /dev/urandom or fall back to nanos()
 	uint64_t seed = get_urandom_u64();
@@ -45,19 +47,19 @@ int main(int argc, char *argv[]) {
 
 	printf("\n");
 	// 32 bit randoms
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < iterations; i++) {
 		printf("rand32(): %llu\n", prng.rand());
 	}
 
 	printf("\n");
 	// 64 bit randoms
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < iterations; i++) {
 		printf("rand64(): %llu\n", prng.rand64());
 	}
 
 	printf("\n");
 	double max = 18446744073709551615.0; // 2^64 - 1
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < iterations; i++) {
 		double num = prng.rand64() / max;
 		// A double is about 16 decimal digits
 		printf("float   : %0.16f\n", num);
@@ -65,7 +67,7 @@ int main(int argc, char *argv[]) {
 
 	printf("\n");
 	// Biased random number in a range
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < iterations; i++) {
 		uint64_t num   = prng.rand64();
 		uint64_t range = 999;
 
