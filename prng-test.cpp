@@ -52,6 +52,13 @@ int main(int argc, char *argv[]) {
 	for (int i = 0; i < 5; i++) {
 		printf("rand64(): %llu\n", prng.rand64());
 	}
+
+	double max = 18446744073709551615.0; // 2^64 - 1
+	for (int i = 0; i < 5; i++) {
+		double num = prng.rand64() / max;
+		// A double is about 16 decimal digits
+		printf("float   : %0.16f\n", num);
+	}
 }
 
 uint64_t get_urandom_u64() {
