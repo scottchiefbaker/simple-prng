@@ -27,14 +27,14 @@ void pcg32::seed(uint64_t seed1, uint64_t seed2) {
 	state = seed1;
 	inc   = seed2;
 
-	if (this->debug) { printf("%s SEED: %llu / %llu\n", prng_name, state, inc); }
+	if (this->debug) {
+		printf("%s SEED: %d = %llu\n", prng_name, 0, seed1);
+		printf("%s SEED: %d = %llu\n", prng_name, 1, seed2);
+	}
 }
 
 void pcg32::seed(uint64_t seeds[2]) {
-	state = seeds[0];
-	inc   = seeds[1];
-
-	if (this->debug) { printf("%s SEED: %llu / %llu\n", prng_name, state, inc); }
+	seed(seeds[0], seeds[1]);
 }
 
 uint32_t pcg32::rand() {
