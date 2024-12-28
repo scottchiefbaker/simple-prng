@@ -59,6 +59,16 @@ int main(int argc, char *argv[]) {
 		// A double is about 16 decimal digits
 		printf("float   : %0.16f\n", num);
 	}
+
+	printf("\n");
+	// Biased random number in a range
+	for (int i = 0; i < 5; i++) {
+		uint64_t num   = prng.rand64();
+		uint64_t range = 999;
+
+		// A double is about 16 decimal digits
+		printf("0 - %-4d: %d\n", range, num % range);
+	}
 }
 
 uint64_t get_urandom_u64() {
