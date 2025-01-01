@@ -13,22 +13,25 @@ uint64_t nanos();
 
 uint8_t iterations = 4;
 
+// Pick which PRNG you want to use
+pcg32 prng;
+
+//splitmix64 prng;
+//xoroshiro128plus prng;
+//xoshiro256starstar prng;
+//skel prng;
+
 int main(int argc, char *argv[]) {
 	// Get a random number from /dev/urandom or fall back to nanos()
 	uint64_t seed = get_urandom_u64();
-	if (seed == 0 ) { seed = nanos(); }
+	if (seed == 0) { seed = nanos(); }
 
 	// We make a small splitmix64 PRNG to generate seeds
 	splitmix64 sm;
 	sm.seed(seed);
 	sm.warmup();
 
-	//splitmix64 prng;
-	pcg32 prng;
-	//xoroshiro128plus prng;
-	//xoshiro256starstar prng;
-	//skel prng;
-
+	// Enable debug so we print out seeds to sanity check them
 	prng.debug = 1;
 
 	// Use SplitMix64 to generate some seeds
