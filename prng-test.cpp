@@ -101,12 +101,15 @@ uint64_t nanos() {
 	struct timespec ts;
 
 	// Get the monotonic time
-	if (clock_gettime(CLOCK_MONOTONIC, &ts) != 0) {
+	int8_t ok = clock_gettime(CLOCK_MONOTONIC, &ts);
+	if (ok != 0) {
 		return 0; // Return 0 on failure (you can handle this differently)
 	}
 
 	// Calculate uptime in nanoseconds
-	return (uint64_t)ts.tv_sec * 1000000000ULL + (uint64_t)ts.tv_nsec;
+	uint64_t ret = (uint64_t)ts.tv_sec * 1000000000ULL + (uint64_t)ts.tv_nsec;
+
+	return ret;
 }
 
 // vim: tabstop=4 shiftwidth=4 noexpandtab autoindent softtabstop=4
