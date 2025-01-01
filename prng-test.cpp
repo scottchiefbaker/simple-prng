@@ -96,7 +96,7 @@ uint64_t get_urandom_u64() {
 	return random_value;
 }
 
-// Microseconds of uptime
+// Nanoseconds of uptime
 uint64_t nanos() {
 	struct timespec ts;
 
