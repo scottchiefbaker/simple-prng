@@ -96,17 +96,18 @@ uint64_t get_urandom_u64() {
 	return random_value;
 }
 
-// Nanoseconds of uptime
+// Nanoseconds since Unix epoch
 uint64_t nanos() {
 	struct timespec ts;
 
-	// Get the monotonic time
-	int8_t ok = clock_gettime(CLOCK_MONOTONIC, &ts);
+	// int8_t ok = clock_gettime(CLOCK_MONOTONIC, &ts); // Uptime
+	int8_t ok = clock_gettime(CLOCK_REALTIME, &ts);  // Since epoch
+
 	if (ok != 0) {
 		return 0; // Return 0 on failure (you can handle this differently)
 	}
 
-	// Calculate uptime in nanoseconds
+	// Calculate nanoseconds
 	uint64_t ret = (uint64_t)ts.tv_sec * 1000000000ULL + (uint64_t)ts.tv_nsec;
 
 	return ret;
