@@ -66,6 +66,9 @@ static double uint64_to_double(uint64_t num) {
 	return ret;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
 int main(int argc, char *argv[]) {
 	uint8_t iterations = 5;
 
@@ -76,14 +79,14 @@ int main(int argc, char *argv[]) {
 		prng.rand();
 	}
 
-	printf("\n");
 	// 32 bit randoms
+	printf("\n");
 	for (int i = 0; i < iterations; i++) {
 		printf("rand32(): %llu\n", prng.rand());
 	}
 
-	printf("\n");
 	// 64 bit randoms
+	printf("\n");
 	for (int i = 0; i < iterations; i++) {
 		printf("rand64(): %lu\n", prng.rand64());
 	}
@@ -98,8 +101,8 @@ int main(int argc, char *argv[]) {
 		printf("float	: %0.16f\n", dnum);
 	}
 
+	// Random integer in a range
 	printf("\n");
-	// Biased random number in a range
 	for (int i = 0; i < iterations; i++) {
 		uint64_t num   = prng.rand64();
 		uint64_t range = 999;
