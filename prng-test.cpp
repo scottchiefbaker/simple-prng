@@ -54,12 +54,12 @@ uint64_t nanos() {
 }
 
 // https://prng.di.unimi.it/#remarks
-static double _uint64_to_double(uint64_t num) {
+static double uint64_to_double(uint64_t num) {
 	// A standard 64bit double floating-point number in IEEE floating point
 	// format has 52 bits of significand. Thus, the representation can actually
 	// store numbers with 53 significant binary digits.
-	double scale = 1.0 / (1ULL << 53);  // 1 divided by 2^53
-	double ret   = (num >> 11) * scale; // Top 53 bits divided by 1/2^53
+	double scale = 1.0 / (1ULL << 53);	// 1 divided by 2^53
+	double ret	 = (num >> 11) * scale; // Top 53 bits divided by 1/2^53
 
 	//printf("Double: %0.15f\n", ret);
 
@@ -88,12 +88,14 @@ int main(int argc, char *argv[]) {
 		printf("rand64(): %lu\n", prng.rand64());
 	}
 
+	// Random floats
 	printf("\n");
 	double max = 18446744073709551615.0; // 2^64 - 1
 	for (int i = 0; i < iterations; i++) {
-		double num = prng.rand64() / max;
+		uint64_t num = prng.rand64();
+		double	dnum = uint64_to_double(num);
 		// A double is about 16 decimal digits
-		printf("float   : %0.16f\n", num);
+		printf("float	: %0.16f\n", dnum);
 	}
 
 	printf("\n");
